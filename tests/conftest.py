@@ -23,7 +23,7 @@ def generate_couriers_data_with_delete():
     # firstName = create_couriers_body['firstName']
     yield create_couriers_body
     # yield [create_couriers_body, login, password, firstName]
-    courier_id = CourierMethods().login_courier(login, password).get('id')
+    courier_id = CourierMethods().login_courier(login, password).json().get('id')
     if courier_id:
         CourierMethods().delete_courier(courier_id)
 

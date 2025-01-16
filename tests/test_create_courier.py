@@ -1,7 +1,4 @@
 import allure
-from generator import register_new_courier
-import pytest
-import tests.conftest
 
 
 class TestCreateCourier:
@@ -29,7 +26,7 @@ class TestCreateCourier:
 #Дополнительное задание
     @allure.title('Test Successful Deletion of creation')
     def test_successful_deletion_of_creation(self, courier_methods, generate_couriers_data):
-        id = courier_methods.login_courier(generate_couriers_data["login"], generate_couriers_data["password"]).get("id")
-        delete_creation_response = courier_methods.delete_courier(id)
+        courier_id = courier_methods.login_courier(generate_couriers_data["login"], generate_couriers_data["password"]).json().get("id")
+        delete_creation_response = courier_methods.delete_courier(courier_id)
         assert delete_creation_response.status_code == 200 and delete_creation_response.json()['ok'] is True
 

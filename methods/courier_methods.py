@@ -9,10 +9,7 @@ class CourierMethods:
 
     def login_courier(self, login, password):
         payload = {'login': login, 'password': password}
-        response = requests.post(f'{Url.BASE_URL}{Url.LOGIN_URL}', data=payload)
-        login = response.json()
-        return login
+        return requests.post(f'{Url.BASE_URL}{Url.LOGIN_URL}', data=payload)
 
     def delete_courier(self, courier_id):
         return requests.delete(f'{Url.BASE_URL}{Url.CREATE_URL}/{courier_id}')
-
