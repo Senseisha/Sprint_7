@@ -1,10 +1,9 @@
 import requests
-from data import Url, DataForLogin
+from data import Url
 
 
 class CourierMethods:
     def create_courier(self, body):
-        print(body)
         return requests.post(f'{Url.BASE_URL}{Url.CREATE_URL}', data=body)
 
     def login_courier(self, login, password):

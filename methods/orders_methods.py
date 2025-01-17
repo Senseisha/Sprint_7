@@ -1,9 +1,10 @@
 import requests
-
-from data import Url, DataForCreateOrder
+from data import Url
 
 
 class OrderMethods:
-    def create_order(self):
-        response = requests.post(f'{Url.BASE_URL}{Url.ORDER_URL}', json=DataForCreateOrder.CREATE_ORDER)
-        return response.json()[track]
+    def create_order(self, body):
+        return requests.post(f'{Url.BASE_URL}{Url.ORDER_URL}', json=body)
+
+    def get_list_of_orders(self):
+        return requests.get(f'{Url.BASE_URL}{Url.ORDER_URL}')
