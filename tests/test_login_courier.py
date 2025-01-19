@@ -13,7 +13,7 @@ class TestLoginCourier:
 
     @allure.title('Test Unsuccessful Courier Login with wrong password')
     def test_courier_login_with_wrong_login(self, generate_couriers_data, courier_methods):
-        wrong_password = " "
+        wrong_password = "abrakadabrakakayato"
         courier_login = courier_methods\
             .login_courier(generate_couriers_data["login"], wrong_password)
         assert courier_login.status_code == 404 and courier_login.json()['message'] == "Учетная запись не найдена"
@@ -23,4 +23,4 @@ class TestLoginCourier:
         nonexistent_login = " "
         courier_login = courier_methods \
             .login_courier(nonexistent_login, generate_couriers_data["password"])
-        assert courier_login.status_code  == 404 and courier_login.json()['message'] == "Учетная запись не найдена"
+        assert courier_login.status_code == 404 and courier_login.json()['message'] == "Учетная запись не найдена"

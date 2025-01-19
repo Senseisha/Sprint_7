@@ -8,7 +8,6 @@ class TestCreateOrders:
     @pytest.mark.parametrize('colors', [['BLACK'], ['GREY'], ['BLACK', 'GREY'], None])
     def test_create_orders_with_different_colors(self, order_methods, colors):
         body = helper.modify_create_order_body('color', colors)
-        print(body)
         response = order_methods.create_order(body)
         assert response.status_code == 201 and response.json()['track']
 

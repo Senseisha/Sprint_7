@@ -3,6 +3,8 @@ class Url:
     CREATE_URL = '/api/v1/courier'
     LOGIN_URL = '/api/v1/courier/login'
     ORDER_URL = '/api/v1/orders'
+    ACCEPT_ORDER = '/api/v1/orders/accept'
+    GET_ORDER = '/api/v1/orders/track'
 
 
 class DataForCreate:
