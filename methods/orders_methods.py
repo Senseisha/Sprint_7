@@ -16,6 +16,6 @@ class OrderMethods:
             params = {}
         return requests.put(f'{Url.BASE_URL}{Url.ACCEPT_ORDER}/{order_id}', params=params)
 
-    def get_order_number(self, track, track_number):
+    def get_order_number(self, track_number):
         params = {'t': track_number}
-        return requests.get(f'{Url.BASE_URL}{Url.GET_ORDER}/{track}', params=params)
+        return requests.get(f'{Url.BASE_URL}{Url.GET_ORDER}', params=params)
