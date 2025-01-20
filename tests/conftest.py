@@ -16,18 +16,36 @@ def courier_methods():
 
 
 @pytest.fixture()
-def generate_couriers_data_with_delete():
+def generate_courier_data():
     create_couriers_body = register_new_courier()
-    login = create_couriers_body['login']
-    password = create_couriers_body['password']
-    yield create_couriers_body
+    return create_couriers_body
+
+
+@pytest.fixture()
+def generate_couriers_data_with_delete(generate_courier_data):
+    yield generate_courier_data
+
+    login = generate_courier_data['login']
+    password = generate_courier_data['password']
     courier_id = CourierMethods().login_courier(login, password).json().get('id')
     if courier_id:
         CourierMethods().delete_courier(courier_id)
 
 
 @pytest.fixture()
-def generate_couriers_data():
-    create_couriers_body = register_new_courier()
-    CourierMethods().create_courier(create_couriers_body)
-    yield create_couriers_body
+def create_courier(generate_courier_data):
+    CourierMethods().create_courier(generate_courier_data)
+    yield generate_courier_data
+
+
+@pytest.fixture()
+def create_login_delete_courier(generate_courier_data):
+    login = generate_courier_data['login']
+    password = generate_courier_data['password']
+    CourierMethods().create_courier(generate_courier_data)
+
+    courier_id = CourierMethods().login_courier(login, password).json().get('id')
+
+    yield courier_id
+
+    CourierMethods().delete_courier(courier_id)

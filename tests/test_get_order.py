@@ -6,7 +6,7 @@ import helper
 class TestGetOrder:
     @allure.title('Test Success Get Order')
     @pytest.mark.parametrize('colors', [['GREY']])
-    def test_success_get_order(self, order_methods, colors, generate_couriers_data, courier_methods):
+    def test_success_get_order(self, order_methods, colors, create_courier, courier_methods):
         body = helper.modify_create_order_body('color', colors)
         order_id = order_methods.create_order(body).json().get('track')
         response = order_methods.get_order_number(order_id)
