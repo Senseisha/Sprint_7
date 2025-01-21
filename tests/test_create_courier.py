@@ -1,4 +1,5 @@
 import allure
+from data import DataForResponse
 
 
 class TestCreateCourier:
@@ -12,7 +13,7 @@ class TestCreateCourier:
         courier_methods.create_courier(generate_couriers_data_with_delete)
         same_courier_response = courier_methods.create_courier(generate_couriers_data_with_delete)
         assert same_courier_response.status_code == 409 \
-               and same_courier_response.json()['message'] == "Этот логин уже используется. Попробуйте другой."
+               and same_courier_response.json()['message'] == DataForResponse.login_in_use
 
     @allure.title('Test Unsuccessful Creating Courier without one field')
     def test_creating_courier_without_one_field(self, generate_couriers_data_with_delete, courier_methods):
@@ -20,5 +21,5 @@ class TestCreateCourier:
         copy_data['login'] = ''
         courier_response = courier_methods.create_courier(copy_data)
         assert courier_response.status_code == 400 \
-               and courier_response.json()['message'] == "Недостаточно данных для создания учетной записи"
+               and courier_response.json()['message'] == DataForResponse.not_enough_data_to_create
 

@@ -1,6 +1,7 @@
 import allure
 import pytest
 import helper
+from data import DataForResponse
 
 
 class TestGetOrder:
@@ -16,10 +17,10 @@ class TestGetOrder:
     def test_get_order_without_track(self, order_methods):
         order_id = ''
         response = order_methods.get_order_number(order_id)
-        assert response.status_code == 400 and response.json()['message'] == 'Недостаточно данных для поиска'
+        assert response.status_code == 400 and response.json()['message'] == DataForResponse.not_enough_data
 
     @allure.title('Test Unsuccess Get Order with wrong track')
     def test_get_order_with_wrong_track(self, order_methods):
         order_id = '001100'
         response = order_methods.get_order_number(order_id)
-        assert response.status_code == 404 and response.json()['message'] == 'Заказ не найден'
+        assert response.status_code == 404 and response.json()['message'] == DataForResponse.order_not_found

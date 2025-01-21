@@ -1,4 +1,5 @@
 import allure
+from data import DataForResponse
 
 
 class TestDeleteCourier:
@@ -13,9 +14,9 @@ class TestDeleteCourier:
     def test_deletion_without_id(self, courier_methods, create_courier):
         courier_id = ''
         courier_methods.login_courier(create_courier["login"], \
-                                                create_courier["password"]).json().get("id")
+                                      create_courier["password"]).json().get("id")
         response = courier_methods.delete_courier(courier_id)
-        assert response.status_code == 400 and response.json()['message'] == "Недостаточно данных для удаления курьера"
+        assert response.status_code == 400 and response.json()['message'] == DataForResponse.not_enough_data_to_delete
 
     @allure.title('Test Unsuccessful Deletion of creation with non-existent id')
     def test_deletion_with_nonexistent_id(self, courier_methods, create_courier):
@@ -23,4 +24,4 @@ class TestDeleteCourier:
         courier_methods.login_courier(create_courier["login"], \
                                       create_courier["password"]).json().get("id")
         response = courier_methods.delete_courier(courier_id)
-        assert response.status_code == 404 and response.json()['message'] == "Курьера с таким id нет."
+        assert response.status_code == 404 and response.json()['message'] == DataForResponse.no_courier_with_this_id
