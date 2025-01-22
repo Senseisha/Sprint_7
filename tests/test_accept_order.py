@@ -11,7 +11,7 @@ class TestAcceptOrder:
         body = helper.modify_create_order_body('color', colors)
         order_id = order_methods.create_order(body).json().get('track')
 
-        response = order_methods.accept_order(order_id, create_login_delete_courier)
+        response = order_methods.accept_order(order_id, create_login_delete_courier[1])
         assert response.status_code == 200 and response.json()['ok'] is True
 
     @allure.title('Test Unsuccessful Order Accept without courier id')
@@ -34,11 +34,11 @@ class TestAcceptOrder:
     @allure.title('Test Unsuccessful Order Accept without order id')
     def test_order_accept_without_order_id(self, order_methods, courier_methods, create_login_delete_courier):
         order_id = ''
-        response = order_methods.accept_order(order_id, create_login_delete_courier)
+        response = order_methods.accept_order(order_id, create_login_delete_courier[1])
         assert response.status_code == 400 and response.json()['message'] == DataForResponse.not_enough_data
 
     @allure.title('Test Unsuccessful Order Accept with wrong order id')
     def test_order_accept_with_wrong_order_id(self, order_methods, courier_methods, create_login_delete_courier):
         order_id = '000'
-        response = order_methods.accept_order(order_id, create_login_delete_courier)
+        response = order_methods.accept_order(order_id, create_login_delete_courier[1])
         assert response.status_code == 404 and response.json()['message'] == DataForResponse.no_order_with_this_id

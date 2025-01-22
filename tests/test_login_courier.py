@@ -4,13 +4,10 @@ from data import DataForResponse
 
 class TestLoginCourier:
     @allure.title('Test Successful Courier Login')
-    def test_successful_courier_login(self, create_courier, courier_methods):
-        courier_login = courier_methods \
-            .login_courier(create_courier["login"], create_courier["password"])
-        login_id = courier_login.json()["id"]
-        assert courier_login.status_code == 200 and login_id
-        with allure.step('Clear Up - delete login courier after test'):
-            courier_methods.delete_courier(login_id)
+    def test_successful_courier_login(self, create_login_delete_courier, courier_methods):
+        login_id = create_login_delete_courier[1]
+        response = create_login_delete_courier[0]
+        assert response.status_code == 200 and login_id
 
     @allure.title('Test Unsuccessful Courier Login with wrong password')
     def test_courier_login_with_wrong_login(self, create_courier, courier_methods):
